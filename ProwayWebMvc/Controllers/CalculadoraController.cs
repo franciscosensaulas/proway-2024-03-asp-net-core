@@ -33,6 +33,7 @@ namespace ProwayWebMvc.Controllers
             [FromQuery] int numero01, // [FromQuery] irá pegar da URI o parâmetro
             [FromQuery] int numero02)
         {
+            var x = numero01 / numero02;
             var soma = numero01 + numero02;
             return Ok($"Soma: {soma}");
         }

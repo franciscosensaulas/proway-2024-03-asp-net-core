@@ -1,0 +1,26 @@
+﻿<h2>Editar categoria</h2>
+
+<!-- /categoria/editar?id=20 -->
+<form 
+    asp-controller="Categoria" 
+    asp-action="Editar" 
+    asp-route-id="@ViewBag.Categoria.Id" 
+    method="POST">
+
+    <div>
+        <label class="form-label" for="categoria-nome">Nome</label>
+        <input class="form-control" type="text"
+               id="categoria-nome" name="nome" 
+               required="required"
+               value="@ViewBag.Categoria.Nome"/>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-success float-end" type="submit">
+                <i class="fa-solid fa-floppy-disk"></i> Atualizar
+            </button>
+        </div>
+    </div>
+
+</form>
