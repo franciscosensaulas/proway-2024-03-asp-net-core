@@ -1,0 +1,28 @@
+﻿<h2>Editar estante</h2>
+
+
+<form asp-controller="Estante" 
+    asp-action="Editar" 
+    asp-route-id="@ViewBag.Estante.Id" 
+    method="POST">
+    <div>
+        <label class="form-label" for="estante-nome">Nome</label>
+        <input class="form-control" type="text"
+               id="estante-nome" name="nome" required="required" 
+               value="@ViewBag.Estante.Nome" />
+    </div>
+    <div>
+        <label class="form-label" for="estante-sigla">Sigla</label>
+        <input class="form-control" type="text"
+               id="estante-sigla" name="sigla" required="required" 
+               value="@ViewBag.Estante.Sigla" />
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-success float-end" type="submit">
+                <i class="fa-solid fa-floppy-disk"></i> Alterar
+            </button>
+        </div>
+    </div>
+</form>
