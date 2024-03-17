@@ -1,18 +1,15 @@
-﻿<h2>Editar categoria</h2>
+﻿@model CategoriaEditarViewModel
 
-<!-- /categoria/editar?id=20 -->
-<form 
-    asp-controller="Categoria" 
-    asp-action="Editar" 
-    asp-route-id="@ViewBag.Categoria.Id" 
-    method="POST">
+<h2>Editar categoria</h2>
+
+<form asp-controller="Categoria" asp-action="Editar" method="POST">
+
+    <input type="hidden" asp-for="Id" />
 
     <div>
-        <label class="form-label" for="categoria-nome">Nome</label>
-        <input class="form-control" type="text"
-               id="categoria-nome" name="nome" 
-               required="required"
-               value="@ViewBag.Categoria.Nome"/>
+        <label class="form-label" asp-for="Nome"></label>
+        <input class="form-control" asp-for="Nome" />
+        <span class="text-danger" asp-validation-for="Nome"></span>
     </div>
 
     <div class="row mt-2">

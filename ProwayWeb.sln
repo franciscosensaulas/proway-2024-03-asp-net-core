@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProwayWebMvc", "ProwayWebMv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermercadoRepositorios", "SupermercadoRepositorios\SupermercadoRepositorios.csproj", "{775D301E-6152-41A1-B0EE-C84827F00DA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermercadoServicos", "SupermercadoServicos\SupermercadoServicos.csproj", "{EEBEBA36-D42C-478B-ABD4-4E4B19572EA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{6C9622F7-FCEC-4637-ADA1-58B1D4D5E934}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{775D301E-6152-41A1-B0EE-C84827F00DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{775D301E-6152-41A1-B0EE-C84827F00DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{775D301E-6152-41A1-B0EE-C84827F00DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEBEBA36-D42C-478B-ABD4-4E4B19572EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEBEBA36-D42C-478B-ABD4-4E4B19572EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEBEBA36-D42C-478B-ABD4-4E4B19572EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEBEBA36-D42C-478B-ABD4-4E4B19572EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C9622F7-FCEC-4637-ADA1-58B1D4D5E934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C9622F7-FCEC-4637-ADA1-58B1D4D5E934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C9622F7-FCEC-4637-ADA1-58B1D4D5E934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C9622F7-FCEC-4637-ADA1-58B1D4D5E934}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
