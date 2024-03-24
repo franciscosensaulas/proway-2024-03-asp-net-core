@@ -1,0 +1,46 @@
+﻿@model List<ProdutoIndexViewModel>
+
+
+<h2>Lista de produtos</h2>
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary float-end" href="produto/novo">
+            <i class="fa-solid fa-plus"></i> Nova produto
+        </a>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped mt-2">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Categoria</th>
+            <th>Nome</th>
+            <th>Preço Unitário</th>
+            <th>Data de Vencimento</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model)
+        {
+            <tr>
+                <td>@produto.Id</td>
+                <td>@produto.Categoria</td>
+                <td>@produto.Nome</td>
+                <td>@produto.PrecoUnitario</td>
+                <td>@produto.DataVencimento</td>
+                <td>
+                    <a href="/produto/editar?id=@produto.Id" class="btn btn-primary">
+                        <i class="fa-solid fa-pencil"></i> Editar
+                    </a>
+                    <a href="/produto/apagar?id=@produto.Id" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash"></i> Apagar
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

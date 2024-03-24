@@ -7,6 +7,9 @@ namespace SupermercadoRepositorios.Entidades
         public string Nome { get; set; }
         [Column("preco_unitario")]
         public decimal PrecoUnitario { get; set; }
+        [Column("data_vencimento")]
+        public DateTime? DataVencimento { get; set; }
+        public string? Observacao { get; set; }
 
 
         [Column("id_categoria")]

@@ -70,3 +70,7 @@ INSERT INTO produtos (nome, preco_unitario, id_categoria) VALUES
 
 SELECT * FROM produtos;
 SELECT * FROM categorias;
+
+
+ALTER TABLE produtos ADD data_vencimento DATE;
+ALTER TABLE produtos ADD observacao TEXT;
