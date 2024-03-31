@@ -1,4 +1,6 @@
-﻿<h2>Lista de estantes</h2>
+﻿@model List<EstanteIndexViewModel>
+
+<h2>Lista de estantes</h2>
 
 <div class="row mb-2">
     <div class="col">
@@ -18,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var estante in ViewBag.Estantes)
+        @foreach (var estante in Model)
         {
             <tr>
                 <td>@estante.Id</td>

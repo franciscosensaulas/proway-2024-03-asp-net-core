@@ -2,7 +2,6 @@
 using ProwayWebMvc.Models.Categoria;
 using SupermercadoServicos.Dtos.Categorias;
 using SupermercadoServicos.Interfaces;
-using SupermercadoServicos.Servicos;
 
 namespace ProwayWebMvc.Controllers
 {
@@ -12,9 +11,9 @@ namespace ProwayWebMvc.Controllers
         private readonly ICategoriaServico _categoriaServico;
 
         // ctor tab
-        public CategoriaController()
+        public CategoriaController(ICategoriaServico categoriaServico)
         {
-            _categoriaServico = new CategoriaServico();
+            _categoriaServico = categoriaServico;
         }
 
         public IActionResult Index()

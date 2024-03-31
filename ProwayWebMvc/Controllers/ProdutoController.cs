@@ -14,10 +14,12 @@ namespace ProwayWebMvc.Controllers
         private readonly IProdutoServico _produtoServico;
         private readonly ICategoriaServico _categoriaServico;
 
-        public ProdutoController()
+        public ProdutoController(
+            IProdutoServico produtoServico,
+            ICategoriaServico categoriaServico)
         {
-            _produtoServico = new ProdutoServico();
-            _categoriaServico = new CategoriaServico();
+            _produtoServico = produtoServico;
+            _categoriaServico = categoriaServico;
         }
 
         public IActionResult Index()

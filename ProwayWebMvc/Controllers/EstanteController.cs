@@ -1,38 +1,60 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SupermercadoRepositorios.Entidades;
-using SupermercadoRepositorios.Repositorios;
+using ProwayWebMvc.Models.Estantes;
+using SupermercadoServicos.Dtos.Estantes;
+using SupermercadoServicos.Interfaces;
 
 namespace ProwayWebMvc.Controllers
 {
     [Route("estante")]
     public class EstanteController : Controller
     {
+        private readonly IEstanteServico _estanteServico;
+
+        public EstanteController(IEstanteServico estanteServico)
+        {
+            _estanteServico = estanteServico;
+        }
+
         public IActionResult Index()
         {
-            var repositorio = new EstanteRepositorio();
-            var estantes = repositorio.ObterTodos("");
-            ViewBag.Estantes = estantes;
+            var estanteDtos = _estanteServico.ObterTodos();
+            var viewModels = new List<EstanteIndexViewModel>();
+            foreach (var dto in estanteDtos)
+            {
+                var viewModel = new EstanteIndexViewModel
+                {
+                    Id = dto.Id,
+                    Nome = dto.Nome,
+                    Sigla = dto.Sigla
+                };
+                viewModels.Add(viewModel);
+            }
 
-            return View();
+            return View(viewModels);
         }
 
         [HttpGet("novo")]
         public IActionResult Novo()
         {
-            return View();
+            var viewModel = new EstanteCadastrarViewModel();
+
+            return View(viewModel);
         }
 
         [HttpPost("novo")]
-        public IActionResult Create(
-            [FromForm] string nome,
-            [FromForm] string sigla)
+        public IActionResult Create([FromForm] EstanteCadastrarViewModel viewModel)
         {
-            var repositorio = new EstanteRepositorio();
-            var estante = new Estante();
-            estante.Nome = nome;
-            estante.Sigla = sigla;
+            if (!ModelState.IsValid)
+            {
+                return View("Novo", viewModel);
+            }
 
-            repositorio.Cadastrar(estante);
+            var dto = new EstanteCadastrarDto
+            {
+                Nome = viewModel.Nome,
+                Sigla = viewModel.Sigla
+            };
+            var id = _estanteServico.Cadastrar(dto);
 
             return RedirectToAction("Index");
         }
@@ -40,8 +62,7 @@ namespace ProwayWebMvc.Controllers
         [HttpGet("apagar")]
         public IActionResult Apagar([FromQuery] int id)
         {
-            var repositorio = new EstanteRepositorio();
-            repositorio.Apagar(id);
+            _estanteServico.Apagar(id);
 
             return RedirectToAction("Index");
         }
@@ -49,25 +70,34 @@ namespace ProwayWebMvc.Controllers
         [HttpGet("editar")]
         public IActionResult Editar([FromQuery] int id)
         {
-            var repositorio = new EstanteRepositorio();
-            var estante = repositorio.ObterPorId(id);
-            ViewBag.Estante = estante;
+            var estanteDto = _estanteServico.ObterPorId(id);
 
-            return View();
+            var viewModel = new EstanteEditarViewModel
+            {
+                Id = estanteDto.Id,
+                Nome = estanteDto.Nome,
+                Sigla = estanteDto.Sigla
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost("editar")]
-        public IActionResult Update(
-            [FromQuery] int id,
-            [FromForm] string nome,
-            [FromForm] string sigla)
+        public IActionResult Update([FromForm] EstanteEditarViewModel viewModel)
         {
-            var repositorio = new EstanteRepositorio();
-            var estante = repositorio.ObterPorId(id);
-            estante.Nome = nome;
-            estante.Sigla = sigla;
+            if (!ModelState.IsValid)
+            {
+                return View("Editar", viewModel);
+            }
 
-            repositorio.Atualizar(estante);
+            var estanteEditarDto = new EstanteEditarDto
+            {
+                Nome = viewModel.Nome,
+                Sigla = viewModel.Sigla,
+                Id = viewModel.Id
+            };
+
+            _estanteServico.Editar(estanteEditarDto);
 
             return RedirectToAction("Index");
         }

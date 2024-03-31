@@ -9,9 +9,9 @@ namespace SupermercadoServicos.Servicos
     {
         private readonly ICategoriaRepositorio _categoriaRepositorio;
 
-        public CategoriaServico()
+        public CategoriaServico(ICategoriaRepositorio categoriaRepositorio)
         {
-            _categoriaRepositorio = new CategoriaRepositorio();
+            _categoriaRepositorio = categoriaRepositorio;
         }
 
         public void Apagar(int id)

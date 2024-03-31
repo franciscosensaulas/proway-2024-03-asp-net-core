@@ -1,28 +1,29 @@
-﻿<h2>Editar estante</h2>
+﻿@model EstanteEditarViewModel
 
+<h2>Editar estante</h2>
 
-<form asp-controller="Estante" 
-    asp-action="Editar" 
-    asp-route-id="@ViewBag.Estante.Id" 
-    method="POST">
+<form asp-controller="Estante" asp-action="Editar" method="POST">
+
+    <input type="hidden" asp-for="Id" />
+
     <div>
-        <label class="form-label" for="estante-nome">Nome</label>
-        <input class="form-control" type="text"
-               id="estante-nome" name="nome" required="required" 
-               value="@ViewBag.Estante.Nome" />
+        <label class="form-label" asp-for="Nome"></label>
+        <input class="form-control" asp-for="Nome" />
+        <span class="text-danger" asp-validation-for="Nome"></span>
     </div>
+
     <div>
-        <label class="form-label" for="estante-sigla">Sigla</label>
-        <input class="form-control" type="text"
-               id="estante-sigla" name="sigla" required="required" 
-               value="@ViewBag.Estante.Sigla" />
+        <label class="form-label" asp-for="Sigla"></label>
+        <input class="form-control" asp-for="Sigla" />
+        <span class="text-danger" asp-validation-for="Sigla"></span>
     </div>
 
     <div class="row mt-2">
         <div class="col">
             <button class="btn btn-success float-end" type="submit">
-                <i class="fa-solid fa-floppy-disk"></i> Alterar
+                <i class="fa-solid fa-floppy-disk"></i> Atualizar
             </button>
         </div>
     </div>
+
 </form>

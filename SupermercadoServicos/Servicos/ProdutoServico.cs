@@ -11,10 +11,12 @@ namespace SupermercadoServicos.Servicos
         private readonly IProdutoRepositorio _produtoRepositorio;
         private readonly ICategoriaRepositorio _categoriaRepositorio;
 
-        public ProdutoServico()
+        public ProdutoServico(
+            IProdutoRepositorio produtoRepositorio,
+            ICategoriaRepositorio categoriaRepositorio)
         {
-            _produtoRepositorio = new ProdutoRepositorio();
-            _categoriaRepositorio = new CategoriaRepositorio();
+            _produtoRepositorio = produtoRepositorio;
+            _categoriaRepositorio = categoriaRepositorio;
         }
 
         public void Apagar(int id)
