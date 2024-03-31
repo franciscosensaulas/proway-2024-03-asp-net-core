@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SupermercadoRepositorios.Entidades;
+using SupermercadoRepositorios.Mapeamentos;
 
 namespace SupermercadoRepositorios.BancoDados
 {
-    internal class SupermercadoContexto : DbContext
+    public class SupermercadoContexto : DbContext
     {
         public DbSet<Estante> Estantes { get; set; }
         public DbSet<Produto> Produtos { get; set; }
@@ -11,11 +12,20 @@ namespace SupermercadoRepositorios.BancoDados
 
         // dotnet tool install --global dotnet-ef
 
+        // dotnet ef migrations add <NomeMigration> --project <NomeProjetoRepositorio> --startup-project <NomeProjetoWeb>
+        // Exemplo: dotnet ef migrations add InicialMigracao --project SupermercadoRepositorios --startup-project ProwayWebMvc
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // dotnet ef database update --project SupermercadoRepositorios --startup-project ProwayWebMvc
+        // Migration: é um snapshot do código referente as tabelas do banco de dados
+
+        public SupermercadoContexto(DbContextOptions options): base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\moc\\Desktop\\BancoDados.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True");
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new CategoriaMapeamento());
+            modelBuilder.ApplyConfiguration(new EstanteMapeamento());
+            modelBuilder.ApplyConfiguration(new ProdutoMapeamento());
         }
     }
 }

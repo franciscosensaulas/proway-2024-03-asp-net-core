@@ -2,6 +2,7 @@
 using SupermercadoRepositorios.BancoDados;
 using SupermercadoRepositorios.Entidades;
 using SupermercadoRepositorios.Modelos;
+using SupermercadoRepositorios.Repositorios.Base;
 
 namespace SupermercadoRepositorios.Repositorios
 {
@@ -13,13 +14,10 @@ namespace SupermercadoRepositorios.Repositorios
     // Read => SELECT
     // Update => UPDATE
     // Delete => DELETE
-    public class ProdutoRepositorio : IProdutoRepositorio
+    public class ProdutoRepositorio : RepositorioBase<Produto>, IProdutoRepositorio
     {
-        private readonly SupermercadoContexto _contexto;
-
-        public ProdutoRepositorio()
+        public ProdutoRepositorio(SupermercadoContexto contexto) : base(contexto)
         {
-            _contexto = new SupermercadoContexto();
         }
 
         /*
@@ -30,11 +28,7 @@ namespace SupermercadoRepositorios.Repositorios
                      - Com(string,int) e sem retorno(void)
                      - Com e sem parâmetros => int numero1, o que fica dentro dos parênteses
         */
-        public void Cadastrar(Produto produto)
-        {
-            _contexto.Produtos.Add(produto);
-            _contexto.SaveChanges();
-        }
+
 
         public List<Produto> ObterTodos(ProdutoFiltros produtoFiltros)
         {
@@ -46,24 +40,6 @@ namespace SupermercadoRepositorios.Repositorios
         public int ObterQuantidadeTotalRegistros()
         {
             return _contexto.Produtos.Count();
-        }
-
-        public void Apagar(int id)
-        {
-            var produto = ObterPorId(id);
-            _contexto.Produtos.Remove(produto);
-            _contexto.SaveChanges();
-        }
-
-        public Produto ObterPorId(int id)
-        {
-            return _contexto.Produtos.Where(x => x.Id == id).FirstOrDefault();
-        }
-
-        public void Atualizar(Produto produto)
-        {
-            _contexto.Produtos.Update(produto); 
-            _contexto.SaveChanges();
         }
     }
 }

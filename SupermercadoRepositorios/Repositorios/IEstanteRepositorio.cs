@@ -1,13 +1,10 @@
 ﻿using SupermercadoRepositorios.Entidades;
+using SupermercadoRepositorios.Repositorios.Base;
 
 namespace SupermercadoRepositorios.Repositorios
 {
-    public interface IEstanteRepositorio
+    public interface IEstanteRepositorio : IRepositorioBase<Estante>
     {
-        void Cadastrar(Estante estante);
         List<Estante> ObterTodos(string pesquisa);
-        Estante ObterPorId(int id);
-        void Atualizar(Estante estante);
-        void Apagar(int id);
     }
 }

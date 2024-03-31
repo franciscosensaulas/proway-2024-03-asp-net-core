@@ -1,13 +1,9 @@
 ﻿using SupermercadoRepositorios.Entidades;
+using SupermercadoRepositorios.Repositorios.Base;
 
 namespace SupermercadoRepositorios.Repositorios
 {
-    public interface ICategoriaRepositorio
+    public interface ICategoriaRepositorio : IRepositorioBase<Categoria>
     {
-        List<Categoria> ObterTodos();
-        void Cadastrar(Categoria categoria);
-        void Atualizar(Categoria categoria);
-        void Apagar(int id);
-        Categoria ObterPorId(int id);
     }
 }

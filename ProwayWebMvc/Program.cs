@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using SupermercadoRepositorios.BancoDados;
 using SupermercadoRepositorios.Repositorios;
 using SupermercadoServicos.Interfaces;
 using SupermercadoServicos.Servicos;
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<SupermercadoContexto>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registrar as classes que implementam as interfaces de serviço e repositório
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
