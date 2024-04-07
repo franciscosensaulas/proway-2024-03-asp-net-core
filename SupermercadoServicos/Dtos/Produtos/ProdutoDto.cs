@@ -7,5 +7,6 @@
         public decimal PrecoUnitario { get; set; }
         public string Categoria { get; set; }
         public DateTime? DataVencimento { get; set; }
+        public string? NomeArquivo { get; set; }
     }
 }

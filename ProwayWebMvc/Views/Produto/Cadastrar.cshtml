@@ -1,5 +1,5 @@
 ﻿@model ProdutoCadastrarViewModel
-<form method="POST" asp-action="Novo">
+<form method="POST" asp-action="Novo" enctype="multipart/form-data">
     <div>
         <label class="form-label" asp-for="Nome"></label>
         <input class="form-control" asp-for="Nome" />
@@ -21,6 +21,11 @@
         <label class="form-label" asp-for="DataVencimento"></label>
         <input class="form-control" asp-for="DataVencimento" />
         <span class="text-danger" asp-validation-for="DataVencimento"></span>
+    </div>
+    <div>
+        <label class="form-label" asp-for="Arquivo"></label>
+        <input class="form-control" asp-for="Arquivo" />
+        <span class="text-danger" asp-validation-for="Arquivo"></span>
     </div>
     <div>
         <label class="form-label" asp-for="Observacao"></label>

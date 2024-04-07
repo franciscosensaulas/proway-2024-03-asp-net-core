@@ -19,6 +19,7 @@ builder.Services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
 builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
 builder.Services.AddScoped<IEstanteRepositorio, EstanteRepositorio>();
 builder.Services.AddScoped<IEstanteServico, EstanteServico>();
+builder.Services.AddScoped<IArquivoUploadServico, ArquivoUploadServico>();
 
 var app = builder.Build();
 
@@ -29,7 +30,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -41,4 +41,11 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+using(var scopo = app.Services.CreateScope())
+{
+    // Irá aplicar automaticamente as migrações quando a aplicação subir,
+    // ou seja, vai criar o banco de dados com as tabelas mapeadas
+    var contexto = scopo.ServiceProvider.GetService<SupermercadoContexto>();
+    contexto?.Database.Migrate();
+}
 app.Run();

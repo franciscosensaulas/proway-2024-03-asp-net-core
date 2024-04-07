@@ -32,6 +32,11 @@ namespace SupermercadoRepositorios.Mapeamentos
             builder.Property(x => x.Observacao)
                 .HasColumnType("TEXT");
 
+            builder.Property(x => x.Arquivo)
+                .HasColumnName("VARCHAR")
+                .HasMaxLength(300);
+            
+
             // Adicionar coluna para criar o Foreign key, criando o
             // relacionamento entre produto e categoria
             builder.HasOne(x => x.Categoria)

@@ -4,12 +4,12 @@ namespace ProwayWebMvc.Models.Produtos
 {
     public class ProdutoIndexViewModel
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public decimal PrecoUnitario { get; set; }
-        public string Categoria { get; set; }
-        public DateTime? DataVencimento { get; set; }
-
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public decimal PrecoUnitario { get; private set; }
+        public string Categoria { get; private set; }
+        public DateTime? DataVencimento { get; private set; }
+        public string? NomeArquivo { get; private set; }
 
         public static List<ProdutoIndexViewModel> ConstruirCom(List<ProdutoDto> dtos)
         {
@@ -23,6 +23,7 @@ namespace ProwayWebMvc.Models.Produtos
                     Categoria = produtoDto.Categoria,
                     PrecoUnitario = produtoDto.PrecoUnitario,
                     DataVencimento = produtoDto.DataVencimento,
+                    NomeArquivo = produtoDto.NomeArquivo,
                 };
                 viewModels.Add(produtoIndexViewModel);
             }

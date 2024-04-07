@@ -15,6 +15,7 @@
     <thead>
         <tr>
             <th>Código</th>
+            <th>Imagem</th>
             <th>Categoria</th>
             <th>Nome</th>
             <th>Preço Unitário</th>
@@ -27,6 +28,9 @@
         {
             <tr>
                 <td>@produto.Id</td>
+                <td>
+                    <img class="img-thumbnail img-max-width" src="/Produtos/@produto.NomeArquivo" />
+                </td>
                 <td>@produto.Categoria</td>
                 <td>@produto.Nome</td>
                 <td>@produto.PrecoUnitario</td>
