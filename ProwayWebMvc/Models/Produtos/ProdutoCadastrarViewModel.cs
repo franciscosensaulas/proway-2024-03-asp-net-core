@@ -23,5 +23,9 @@ namespace ProwayWebMvc.Models.Produtos
 
         [DisplayName("Observação")]
         public string? Observacao { get; set; }
+
+        // IFormFile é utilizado para fazer upload de arquivos do Browser para o servidor
+        [DisplayName("Imagem")]
+        public IFormFile? Arquivo { get; set; }
     }
 }

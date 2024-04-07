@@ -9,6 +9,7 @@ namespace SupermercadoRepositorios.Entidades
         public decimal PrecoUnitario { get; set; }
         public DateTime? DataVencimento { get; set; }
         public string? Observacao { get; set; }
+        public string? Arquivo { get; set; }
 
 
         public int CategoriaId { get; set; }

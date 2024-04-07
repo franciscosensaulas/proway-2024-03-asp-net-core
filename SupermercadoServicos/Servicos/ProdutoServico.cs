@@ -10,13 +10,16 @@ namespace SupermercadoServicos.Servicos
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
         private readonly ICategoriaRepositorio _categoriaRepositorio;
+        private readonly IArquivoUploadServico _arquivoUploadServico;
 
         public ProdutoServico(
             IProdutoRepositorio produtoRepositorio,
-            ICategoriaRepositorio categoriaRepositorio)
+            ICategoriaRepositorio categoriaRepositorio,
+            IArquivoUploadServico arquivoUploadServico)
         {
             _produtoRepositorio = produtoRepositorio;
             _categoriaRepositorio = categoriaRepositorio;
+            _arquivoUploadServico = arquivoUploadServico;
         }
 
         public void Apagar(int id)
@@ -27,6 +30,12 @@ namespace SupermercadoServicos.Servicos
         public int Cadastrar(ProdutoCadastrarDto produtoCadastrarDto)
         {
             var categoria = _categoriaRepositorio.ObterPorId(produtoCadastrarDto.CategoriaId);
+            
+            // Seleciona o arquivo, salvar (arquivo será enviado para o servidor)
+            // Servidor terá que verificar, armazenar esse arquivo (local, S3/Azure Blob Storage, Banco Dados)
+            var nomeArquivo = _arquivoUploadServico.ArmazenarArquivo(
+                produtoCadastrarDto.Arquivo, produtoCadastrarDto.CaminhoServidor);
+
             var produto = new Produto
             {
                 //Categoria = categoria,
@@ -35,6 +44,7 @@ namespace SupermercadoServicos.Servicos
                 PrecoUnitario = produtoCadastrarDto.PrecoUnitario,
                 DataVencimento = produtoCadastrarDto.DataVencimento,
                 Observacao = produtoCadastrarDto.Observacao,
+                Arquivo = nomeArquivo,
             };
             _produtoRepositorio.Cadastrar(produto);
             return produto.Id;
@@ -70,6 +80,7 @@ namespace SupermercadoServicos.Servicos
                 PrecoUnitario = produto.PrecoUnitario,
                 Categoria = produto.Categoria.Nome,
                 DataVencimento = produto.DataVencimento,
+                NomeArquivo = produto.Arquivo,
             };
         }
     }

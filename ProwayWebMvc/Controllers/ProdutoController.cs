@@ -4,7 +4,6 @@ using ProwayWebMvc.Models.Produtos;
 using SupermercadoServicos.Dtos.Categorias;
 using SupermercadoServicos.Dtos.Produtos;
 using SupermercadoServicos.Interfaces;
-using SupermercadoServicos.Servicos;
 
 namespace ProwayWebMvc.Controllers
 {
@@ -13,13 +12,17 @@ namespace ProwayWebMvc.Controllers
     {
         private readonly IProdutoServico _produtoServico;
         private readonly ICategoriaServico _categoriaServico;
+        private readonly string _caminhoServidor;
 
         public ProdutoController(
             IProdutoServico produtoServico,
-            ICategoriaServico categoriaServico)
+            ICategoriaServico categoriaServico,
+            IWebHostEnvironment webHostEnvironment)
         {
             _produtoServico = produtoServico;
             _categoriaServico = categoriaServico;
+            // WebRootPath é o caminho até a pasta wwwroot (css, javascript, arquivos)
+            _caminhoServidor = webHostEnvironment.WebRootPath;
         }
 
         public IActionResult Index()
@@ -54,7 +57,9 @@ namespace ProwayWebMvc.Controllers
                 CategoriaId = viewModel.CategoriaId.GetValueOrDefault(),
                 PrecoUnitario = viewModel.PrecoUnitario.GetValueOrDefault(),
                 DataVencimento = viewModel.DataVencimento.GetValueOrDefault(),
-                Observacao = viewModel.Observacao
+                Observacao = viewModel.Observacao,
+                Arquivo = viewModel.Arquivo,
+                CaminhoServidor = _caminhoServidor,
             };
             var id = _produtoServico.Cadastrar(produtoDto);
 

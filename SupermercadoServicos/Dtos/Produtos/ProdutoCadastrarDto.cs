@@ -1,4 +1,6 @@
-﻿namespace SupermercadoServicos.Dtos.Produtos
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SupermercadoServicos.Dtos.Produtos
 {
     public class ProdutoCadastrarDto
     {
@@ -7,5 +9,7 @@
         public DateTime DataVencimento { get; set; }
         public int CategoriaId { get; set; }
         public string? Observacao { get; set; }
+        public IFormFile? Arquivo { get; set; }
+        public string CaminhoServidor { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace SupermercadoRepositorios.BancoDados
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
 
+        // Entidade => Mapeamento => Gerar Migration
         // dotnet tool install --global dotnet-ef
 
         // dotnet ef migrations add <NomeMigration> --project <NomeProjetoRepositorio> --startup-project <NomeProjetoWeb>
