@@ -12,6 +12,7 @@ namespace SupermercadoServicos.DependecyInjections
             services.AddScoped<IProdutoServico, ProdutoServico>();
             services.AddScoped<IEstanteServico, EstanteServico>();
             services.AddScoped<IArquivoUploadServico, ArquivoUploadServico>();
+            services.AddScoped<IAutenticacaoServico, AutenticacaoServico>();
             return services;
         }
     }

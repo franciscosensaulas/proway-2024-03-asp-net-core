@@ -10,6 +10,7 @@ namespace SupermercadoRepositorios.DependecyInjections
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<IEstanteRepositorio, EstanteRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             return services;
         }
     }

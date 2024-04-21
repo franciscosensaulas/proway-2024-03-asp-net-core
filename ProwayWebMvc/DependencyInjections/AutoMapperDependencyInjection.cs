@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using ProwayWebMvc.Models.Autenticacao;
 using ProwayWebMvc.Models.Estantes;
 using SupermercadoRepositorios.Entidades;
+using SupermercadoServicos.Dtos.Autenticacao;
 using SupermercadoServicos.Dtos.Estantes;
 
 namespace ProwayWebMvc.DependencyInjections
@@ -21,6 +23,9 @@ namespace ProwayWebMvc.DependencyInjections
                 x.CreateMap<EstanteDto, EstanteIndexViewModel>();
                 x.CreateMap<Estante, EstanteDto>();
                 x.CreateMap<EstanteDto, EstanteEditarViewModel>();
+
+                x.CreateMap<AutenticacaoViewModel, AutenticacaoDto>()
+                    .ForPath(x => x.Senha, opt => opt.MapFrom(x => x.Senha.Hash512()));
             });
 
             var mapper = mapperConfiguration.CreateMapper();
