@@ -1,25 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using ProwayWebMvc.DependencyInjections;
 using SupermercadoRepositorios.BancoDados;
-using SupermercadoRepositorios.Repositorios;
-using SupermercadoServicos.Interfaces;
-using SupermercadoServicos.Servicos;
+using SupermercadoRepositorios.DependecyInjections;
+using SupermercadoServicos.DependecyInjections;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<SupermercadoContexto>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Registrar as classes que implementam as interfaces de serviço e repositório
-builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
-builder.Services.AddScoped<ICategoriaServico, CategoriaServico>();
-builder.Services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
-builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
-builder.Services.AddScoped<IEstanteRepositorio, EstanteRepositorio>();
-builder.Services.AddScoped<IEstanteServico, EstanteServico>();
-builder.Services.AddScoped<IArquivoUploadServico, ArquivoUploadServico>();
+builder.Services
+    .ConfigureDatabase(builder.Configuration)
+    .ConfigureAutoMapper()
+    .AddServices()
+    .AddRepositories()
+    .AddControllersWithViews();
 
 var app = builder.Build();
 

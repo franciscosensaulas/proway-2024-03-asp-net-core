@@ -1,4 +1,5 @@
-﻿using SupermercadoRepositorios.Entidades;
+﻿using AutoMapper;
+using SupermercadoRepositorios.Entidades;
 using SupermercadoRepositorios.Repositorios;
 using SupermercadoServicos.Dtos.Estantes;
 using SupermercadoServicos.Interfaces;
@@ -8,10 +9,12 @@ namespace SupermercadoServicos.Servicos
     public class EstanteServico : IEstanteServico
     {
         private readonly IEstanteRepositorio _estanteRepositorio;
+        private readonly IMapper _mapper;
 
-        public EstanteServico(IEstanteRepositorio estanteRepositorio)
+        public EstanteServico(IEstanteRepositorio estanteRepositorio, IMapper mapper)
         {
             _estanteRepositorio = estanteRepositorio;
+            _mapper = mapper;
         }
 
         public void Apagar(int id)
@@ -21,11 +24,7 @@ namespace SupermercadoServicos.Servicos
 
         public int Cadastrar(EstanteCadastrarDto dto)
         {
-            var estante = new Estante
-            {
-                Nome = dto.Nome,
-                Sigla = dto.Sigla,
-            };
+            var estante = _mapper.Map<Estante>(dto);
             _estanteRepositorio.Cadastrar(estante);
             return estante.Id;
         }
@@ -41,30 +40,13 @@ namespace SupermercadoServicos.Servicos
         public EstanteDto ObterPorId(int id)
         {
             var estante = _estanteRepositorio.ObterPorId(id);
-            var estanteDto = new EstanteDto
-            {
-                Nome = estante.Nome,
-                Sigla = estante.Sigla,
-            };
-            return estanteDto;
+            return _mapper.Map<EstanteDto>(estante);
         }
 
         public List<EstanteDto> ObterTodos()
         {
             var estantes = _estanteRepositorio.ObterTodos(string.Empty);
-            var estanteDtos = new List<EstanteDto>();
-
-            foreach (var estante in estantes)
-            {
-                var estanteDto = new EstanteDto
-                {
-                    Id = estante.Id,
-                    Nome = estante.Nome,
-                    Sigla = estante.Sigla,
-                };
-                estanteDtos.Add(estanteDto);
-            }
-            return estanteDtos;
+            return _mapper.Map<List<EstanteDto>>(estantes);
         }
     }
 }

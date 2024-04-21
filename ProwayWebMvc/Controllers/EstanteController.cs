@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ProwayWebMvc.Models.Estantes;
 using SupermercadoServicos.Dtos.Estantes;
 using SupermercadoServicos.Interfaces;
@@ -9,27 +10,18 @@ namespace ProwayWebMvc.Controllers
     public class EstanteController : Controller
     {
         private readonly IEstanteServico _estanteServico;
+        private readonly IMapper _mapper;
 
-        public EstanteController(IEstanteServico estanteServico)
+        public EstanteController(IEstanteServico estanteServico, IMapper mapper)
         {
             _estanteServico = estanteServico;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var estanteDtos = _estanteServico.ObterTodos();
-            var viewModels = new List<EstanteIndexViewModel>();
-            foreach (var dto in estanteDtos)
-            {
-                var viewModel = new EstanteIndexViewModel
-                {
-                    Id = dto.Id,
-                    Nome = dto.Nome,
-                    Sigla = dto.Sigla
-                };
-                viewModels.Add(viewModel);
-            }
-
+            var viewModels = _mapper.Map<List<EstanteIndexViewModel>>(estanteDtos);
             return View(viewModels);
         }
 
@@ -45,15 +37,9 @@ namespace ProwayWebMvc.Controllers
         public IActionResult Create([FromForm] EstanteCadastrarViewModel viewModel)
         {
             if (!ModelState.IsValid)
-            {
                 return View("Novo", viewModel);
-            }
 
-            var dto = new EstanteCadastrarDto
-            {
-                Nome = viewModel.Nome,
-                Sigla = viewModel.Sigla
-            };
+            var dto = _mapper.Map<EstanteCadastrarDto>(viewModel);
             var id = _estanteServico.Cadastrar(dto);
 
             return RedirectToAction("Index");
@@ -72,13 +58,7 @@ namespace ProwayWebMvc.Controllers
         {
             var estanteDto = _estanteServico.ObterPorId(id);
 
-            var viewModel = new EstanteEditarViewModel
-            {
-                Id = estanteDto.Id,
-                Nome = estanteDto.Nome,
-                Sigla = estanteDto.Sigla
-            };
-
+            var viewModel = _mapper.Map<EstanteEditarViewModel>(estanteDto);
             return View(viewModel);
         }
 
@@ -86,16 +66,9 @@ namespace ProwayWebMvc.Controllers
         public IActionResult Update([FromForm] EstanteEditarViewModel viewModel)
         {
             if (!ModelState.IsValid)
-            {
                 return View("Editar", viewModel);
-            }
 
-            var estanteEditarDto = new EstanteEditarDto
-            {
-                Nome = viewModel.Nome,
-                Sigla = viewModel.Sigla,
-                Id = viewModel.Id
-            };
+            var estanteEditarDto = _mapper.Map<EstanteEditarDto>(viewModel);
 
             _estanteServico.Editar(estanteEditarDto);
 

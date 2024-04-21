@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProwayWebMvc.Models.Produtos;
 using SupermercadoServicos.Dtos.Categorias;
@@ -13,22 +14,26 @@ namespace ProwayWebMvc.Controllers
         private readonly IProdutoServico _produtoServico;
         private readonly ICategoriaServico _categoriaServico;
         private readonly string _caminhoServidor;
+        private readonly IMapper _mapper;
 
         public ProdutoController(
             IProdutoServico produtoServico,
             ICategoriaServico categoriaServico,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IMapper mapper)
         {
             _produtoServico = produtoServico;
             _categoriaServico = categoriaServico;
             // WebRootPath é o caminho até a pasta wwwroot (css, javascript, arquivos)
             _caminhoServidor = webHostEnvironment.WebRootPath;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var produtoDtos = _produtoServico.ObterTodos();
-            var produtoIndexViewModels = ProdutoIndexViewModel.ConstruirCom(produtoDtos);
+            var produtoIndexViewModels = _mapper.Map<List< ProdutoIndexViewModel>>(produtoDtos);
+            //var produtoIndexViewModels = ProdutoIndexViewModel.ConstruirCom(produtoDtos);
 
             return View(produtoIndexViewModels);
         }
