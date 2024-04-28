@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace ProwayWebMvc.DependencyInjections
+namespace SupermercadoRepositorios.Extensions
 {
     public static class Sha512ExtensionMethod
     {

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProwayWebMvc.DependencyInjections;
+using ProwayWebMvc.Middlewares;
 using SupermercadoRepositorios.BancoDados;
 using SupermercadoRepositorios.DependecyInjections;
 using SupermercadoServicos.DependecyInjections;
@@ -13,6 +14,15 @@ builder.Services
     .AddServices()
     .AddRepositories()
     .AddControllersWithViews();
+
+// Configurar a sessão para conseguir realizar o login
+builder.Services.AddSession(options =>
+{
+    // Configurar o tempo em que o usuário n tem interação com o sistema
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -29,6 +39,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
+app.UseMiddleware<AutenticacaoMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

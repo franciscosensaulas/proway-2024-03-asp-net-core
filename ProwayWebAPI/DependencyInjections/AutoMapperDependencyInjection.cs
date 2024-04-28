@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using ProwayWebMvc.Models.Autenticacao;
-using ProwayWebMvc.Models.Estantes;
 using SupermercadoRepositorios.Entidades;
-using SupermercadoRepositorios.Extensions;
-using SupermercadoServicos.Dtos.Autenticacao;
 using SupermercadoServicos.Dtos.Estantes;
 
-namespace ProwayWebMvc.DependencyInjections
+
+namespace ProwayWebAPI.DependencyInjections
 {
     public static class AutoMapperDependencyInjection
     {
@@ -17,16 +14,9 @@ namespace ProwayWebMvc.DependencyInjections
             // Requisição: Controller (ViewModel) => Serviço (Dto) => Repositorio (Entidade)
             var mapperConfiguration = new MapperConfiguration(x =>
             {
-                x.CreateMap<EstanteCadastrarViewModel, EstanteCadastrarDto>();
                 x.CreateMap<EstanteCadastrarDto, Estante>();
-                x.CreateMap<EstanteEditarViewModel, EstanteEditarDto>();
                 x.CreateMap<EstanteEditarDto, Estante>();
-                x.CreateMap<EstanteDto, EstanteIndexViewModel>();
                 x.CreateMap<Estante, EstanteDto>();
-                x.CreateMap<EstanteDto, EstanteEditarViewModel>();
-
-                x.CreateMap<AutenticacaoViewModel, AutenticacaoDto>()
-                    .ForPath(x => x.Senha, opt => opt.MapFrom(x => x.Senha.Hash512()));
             });
 
             var mapper = mapperConfiguration.CreateMapper();

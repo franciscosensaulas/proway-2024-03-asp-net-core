@@ -27,6 +27,7 @@ namespace SupermercadoRepositorios.BancoDados
             modelBuilder.ApplyConfiguration(new CategoriaMapeamento());
             modelBuilder.ApplyConfiguration(new EstanteMapeamento());
             modelBuilder.ApplyConfiguration(new ProdutoMapeamento());
+            modelBuilder.ApplyConfiguration(new UsuarioMapeamento());
         }
     }
 }

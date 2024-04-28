@@ -1,5 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ProwayWebMvc.Models.Autenticacao
+@model AutenticacaoViewModel
+
 @{
+    Layout = "_LayoutPublico";
 }
+<form asp-action="Login" method="post">
+    <h1 class="h3 mb-3 fw-normal">Sistema ProWay</h1>
+    <div class="form-floating">
+        <input class="form-control" asp-for="Email" placeholder="name@example.com" />
+        <label asp-for="Email"></label>
+    </div>
+
+    <div class="form-floating">
+        <input class="form-control" asp-for="Senha" />
+        <label asp-for="Senha"></label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+</form>

@@ -1,0 +1,6 @@
+@ProwayWebAPI_HostAddress = http://localhost:5272
+
+GET {{ProwayWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

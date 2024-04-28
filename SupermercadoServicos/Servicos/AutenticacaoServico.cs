@@ -1,4 +1,5 @@
-﻿using SupermercadoRepositorios.Repositorios;
+﻿using Microsoft.AspNetCore.Http;
+using SupermercadoRepositorios.Repositorios;
 using SupermercadoServicos.Dtos.Autenticacao;
 using SupermercadoServicos.Interfaces;
 using System;
@@ -19,19 +20,21 @@ namespace SupermercadoServicos.Servicos
             _usuarioRepositorio = usuarioRepositorio;
         }
 
-        public void Autenticar(AutenticacaoDto dto)
+        public void Autenticar(AutenticacaoDto dto, ISession sessao)
         {
             var usuario = _usuarioRepositorio.ObterPorEmailSenha(dto.Email, dto.Senha);
             if (usuario == null)
                 throw new Exception("Usuário n encontrado");
 
             var usuarioJson = JsonSerializer.Serialize(usuario);
-            session.SetString("usuarioSessao", usuarioJson);
+            sessao.SetString("usuarioSessao", usuarioJson);
         }
 
-        public void Sair()
+        public void Sair(ISession sessao)
         {
-            throw new NotImplementedException();
+            var usuario = sessao.GetString("usuarioSessao");
+            if (usuario != null)
+                sessao.Remove("usuarioSessao");
         }
     }
 }
